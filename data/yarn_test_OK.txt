@@ -1,0 +1,13 @@
+18/06/22 15:39:26 INFO client.RMProxy: Connecting to ResourceManager at /134.158.74.78:8032
+18/06/22 15:39:26 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Total Nodes:9
+         Node-Id	     Node-State	Node-Http-Address	Number-of-Running-Containers
+    slave8:46373	        RUNNING	      slave8:8042	                           0
+    slave6:36772	        RUNNING	      slave6:8042	                           0
+    slave9:45164	        RUNNING	      slave9:8042	                           0
+    slave4:39894	        RUNNING	      slave4:8042	                           0
+    slave1:38529	        RUNNING	      slave1:8042	                           0
+    slave7:45471	        RUNNING	      slave7:8042	                           0
+    slave3:34679	        RUNNING	      slave3:8042	                           0
+    slave2:38688	        RUNNING	      slave2:8042	                           0
+    slave5:38172	        RUNNING	      slave5:8042	                           0
