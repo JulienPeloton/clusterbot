@@ -133,12 +133,12 @@ class ClusterBot():
 
         >>> msg = bot.check_yarn(logtest="data/yarn_test_OK.txt")
         >>> print(msg)
-        :white_check_mark: YARN (9/9 slaves up)
+        :white_check_mark: YARN monitoring (9/9 slaves up)
         <BLANKLINE>
 
         >>> msg = bot.check_yarn(logtest="data/yarn_test_FAIL.txt")
         >>> print(msg)
-        :red_circle: YARN (8/9 slaves up)
+        :red_circle: YARN monitoring (8/9 slaves up)
         _run <yarn node -list -all> for more information_
         <BLANKLINE>
         """
@@ -154,10 +154,10 @@ class ClusterBot():
         nslave = len([line for line in yarn_log if "RUNNING" in line])
 
         if (nslave == nslave_expected):
-            msg = ":white_check_mark: YARN ({}/{} slaves up)\n".format(
+            msg = ":white_check_mark: YARN monitoring ({}/{} slaves up)\n".format(
                 nslave, nslave_expected)
         else:
-            msg = ":red_circle: YARN ({}/{} slaves up)\n".format(
+            msg = ":red_circle: YARN monitoring ({}/{} slaves up)\n".format(
                 nslave, nslave_expected)
             msg += "_run <yarn node -list -all> for more information_\n"
 
@@ -367,7 +367,7 @@ class ClusterBot():
         --------------------
         :black_circle: Executor monitoring disabled
         :black_circle: JVMs monitoring disabled
-        :white_check_mark: YARN (9/9 slaves up)
+        :white_check_mark: YARN monitoring (9/9 slaves up)
         :black_circle: HDFS monitoring disabled
         :black_circle: Spark monitoring disabled
         <BLANKLINE>
