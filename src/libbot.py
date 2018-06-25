@@ -59,7 +59,7 @@ class ClusterBot():
 
         yarn_log = return_log(cmd, logname)
 
-        nslave = len([line for line in yarn_log if "slave" in line])
+        nslave = len([line for line in yarn_log if "RUNNING" in line])
 
         if (nslave == nslave_expected):
             msg = ":white_check_mark: YARN ({}/{} slaves up)\n".format(
@@ -94,7 +94,6 @@ def return_log(cmd, logname, remove_log=True):
     """
     ## Launch the command and redirect the log
     os.system(cmd + " > {}".format(logname))
-    # logname = "yarn.txt"
 
     ## Load the log in a list (line-by-line)
     data = []
