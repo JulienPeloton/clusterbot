@@ -1,0 +1,17 @@
+--- 1 ---
+4009 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 2 ---
+16311 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 3 ---
+7211 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 4 ---
+6206 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 5 ---
+--- 6 ---
+27347 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 7 ---
+390 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 8 ---
+27405 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077
+--- 9 ---
+614 org.apache.spark.deploy.worker.Worker --webui-port 20002 spark://vm-75222.lal.in2p3.fr:7077

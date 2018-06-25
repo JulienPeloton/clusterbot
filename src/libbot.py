@@ -286,10 +286,71 @@ class ClusterBot():
 
         return msg
 
-    def check_spark(self):
+    def check_spark(self, nslave_expected=9, logtest="data/spark_test_OK.txt"):
         """
+        Check if all Spark workers are up.
+
+        Parameters
+        ----------
+        nslave_expected : Int
+            Number of slaves (executors) registered in the cluster.
+
+        Returns
+        ----------
+        msg : String
+            Message to be sent to Slack. Contains cirle mark describing the
+            status and number of slaves up.
+
+        Examples
+        ----------
+        >>> bot = ClusterBot("", ["spark"], test=True)
+        +-- RUNNING IN TEST MODE --+
+
+        >>> msg = bot.check_spark(logtest="data/spark_test_OK.txt")
+        >>> print(msg)
+        :white_check_mark: Spark (9/9 slaves up)
+        <BLANKLINE>
+
+        >>> msg = bot.check_spark(logtest="data/spark_test_FAIL.txt")
+        >>> print(msg)
+        :red_circle: Spark (8/9 slaves up)
+        _run <ssh slave# jps -lm | grep spark> for more information_
+        <BLANKLINE>
         """
-        return ""
+        if self.test:
+            cmd = None
+            logname = logtest
+            spark_log = return_log(cmd, logname)
+        else:
+            logname = "spark_{}".format(self.date.replace(" ", "_"))
+            spark_log = []
+
+            ## Loop over slaves
+            for i in range(1, nslave_expected + 1):
+                ## ID
+                cmd = "echo --- {} ---"
+                id = return_log(cmd.format(i), logname)[0]
+                spark_log.append(id)
+
+                ## Services using JVMs
+                cmd = "sudo -i ssh slave{} jps -lm"
+                log = return_log(cmd.format(i), logname)
+                [spark_log.append(line) for line in log]
+
+        workers = len(
+            [line for line in spark_log if "spark" in line])
+        nslaves = len(
+            [line for line in spark_log if "--- " in line])
+
+        if (workers == nslaves & workers == nslave_expected):
+            msg = ":white_check_mark: Spark ({}/{} slaves up)\n".format(
+                nslaves, nslave_expected)
+        else:
+            msg = ":red_circle: Spark ({}/{} slaves up)\n".format(
+                workers, nslave_expected)
+            msg += "_run <ssh slave# jps -lm | grep spark> for more information_\n"
+
+        return msg
 
     def check_hdfs(self, nnode_expected=9, logtest="data/hdfs_test_OK.txt"):
         """

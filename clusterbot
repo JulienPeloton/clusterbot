@@ -17,7 +17,7 @@
 
 ## Webhook URL (where to send the data)
 webhook_url="https://hooks.slack.com/services/XXXX/YYYY/ZZZZ"
-services="yarn"
+services="executors jvms yarn hdfs spark"
 
 python ${PWD}/src/clusterbot.py \
   --webhook_url ${webhook_url} \
