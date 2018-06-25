@@ -291,7 +291,7 @@ class ClusterBot():
         """
         return ""
 
-    def check_hdfs(self, nnode_expected=9, logtest="data/hdfs_test_FAIL.txt"):
+    def check_hdfs(self, nnode_expected=9, logtest="data/hdfs_test_OK.txt"):
         """
         Check whether all DataNotes are alive on your cluster,
         and look at the status. A node is said OK if the DataNote is not Dead.
@@ -314,7 +314,7 @@ class ClusterBot():
 
         >>> msg = bot.check_hdfs(logtest="data/hdfs_test_OK.txt")
         >>> print(msg)
-        :white_check_mark: HDFS (8/9 DataNodes up)
+        :white_check_mark: HDFS (9/9 DataNodes up)
         <BLANKLINE>
 
         >>> msg = bot.check_hdfs(logtest="data/hdfs_test_FAIL.txt")
