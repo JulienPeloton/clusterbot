@@ -258,12 +258,12 @@ class ClusterBot():
             for i in range(1, nslave_expected + 1):
                 ## ID
                 cmd = "echo --- {} ---"
-                id = return_log(cmd.format(i), logname, False)[0]
+                id = return_log(cmd.format(i), logname)[0]
                 jvms_log.append(id)
 
                 ## Services using JVMs
                 cmd = "sudo -i ssh slave{} jps -lm"
-                log = return_log(cmd.format(i), logname, True)
+                log = return_log(cmd.format(i), logname)
                 [jvms_log.append(line) for line in log]
 
         problem = len(
