@@ -233,7 +233,7 @@ class ClusterBot():
 
         Examples
         ----------
-        >>> bot = ClusterBot("", ["executors"], test=True)
+        >>> bot = ClusterBot("", ["jvms"], test=True)
         +-- RUNNING IN TEST MODE --+
 
         >>> msg = bot.check_jvms(logtest="data/jvm_test_OK.txt")
@@ -251,7 +251,7 @@ class ClusterBot():
             logname = logtest
             jvms_log = return_log(cmd, logname)
         else:
-            logname = "executors_{}".format(self.date.replace(" ", "_"))
+            logname = "jvms_{}".format(self.date.replace(" ", "_"))
             data = []
             for i in range(1, 10):
                 cmd = "echo --- {} ---"
@@ -263,7 +263,7 @@ class ClusterBot():
         problem = len(
             [line for line in jvms_log if "unavailable" in line])
         nslaves = len(
-            [line for line in jvms_log if "---" in line])
+            [line for line in jvms_log if "--- " in line])
 
         if (problem == 0):
             msg = ":white_check_mark: inst. JVMs ({}/{} slaves up)\n".format(
