@@ -1,0 +1,157 @@
+Configured Capacity: 34342948839424 (31.23 TB)
+Present Capacity: 34084176052224 (31.00 TB)
+DFS Remaining: 32573295927296 (29.63 TB)
+DFS Used: 1510880124928 (1.37 TB)
+DFS Used%: 4.43%
+Under replicated blocks: 0
+Blocks with corrupt replicas: 0
+Missing blocks: 0
+Missing blocks (with replication factor 1): 0
+Pending deletion blocks: 0
+
+-------------------------------------------------
+Live datanodes (8):
+
+Name: 134.158.74.164:50010 (slave7)
+Hostname: slave7
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 130364428288 (121.41 GB)
+Non DFS Used: 998563840 (952.30 MB)
+DFS Remaining: 4161506136064 (3.78 TB)
+DFS Used%: 3.04%
+DFS Remaining%: 96.94%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:38 CEST 2018
+
+
+Name: 134.158.74.177:50010 (slave9)
+Hostname: slave9
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 131993341952 (122.93 GB)
+Non DFS Used: 523575296 (499.32 MB)
+DFS Remaining: 4160352210944 (3.78 TB)
+DFS Used%: 3.07%
+DFS Remaining%: 96.91%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:37 CEST 2018
+
+
+Name: 134.158.75.102:50010 (slave6)
+Hostname: slave6
+Decommission Status : Normal
+Configured Capacity: 4292867035136 (3.90 TB)
+DFS Used: 228003479552 (212.34 GB)
+Non DFS Used: 16035815424 (14.93 GB)
+DFS Remaining: 4048827740160 (3.68 TB)
+DFS Used%: 5.31%
+DFS Remaining%: 94.32%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:36 CEST 2018
+
+
+Name: 134.158.75.133:50010 (slave1)
+Hostname: slave1
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 244549533696 (227.75 GB)
+Non DFS Used: 112783441920 (105.04 GB)
+DFS Remaining: 3935536152576 (3.58 TB)
+DFS Used%: 5.70%
+DFS Remaining%: 91.68%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:37 CEST 2018
+
+
+Name: 134.158.75.155:50010 (slave8)
+Hostname: slave8
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 95158128640 (88.62 GB)
+Non DFS Used: 1233629184 (1.15 GB)
+DFS Remaining: 4196477370368 (3.82 TB)
+DFS Used%: 2.22%
+DFS Remaining%: 97.75%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:37 CEST 2018
+
+
+Name: 134.158.75.162:50010 (slave2)
+Hostname: slave2
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 181306175488 (168.85 GB)
+Non DFS Used: 95600701440 (89.04 GB)
+DFS Remaining: 4015962251264 (3.65 TB)
+DFS Used%: 4.22%
+DFS Remaining%: 93.55%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:36 CEST 2018
+
+
+Name: 134.158.75.171:50010 (slave3)
+Hostname: slave3
+Decommission Status : Normal
+Configured Capacity: 4292869128192 (3.90 TB)
+DFS Used: 258308177920 (240.57 GB)
+Non DFS Used: 15571304448 (14.50 GB)
+DFS Remaining: 4018989645824 (3.66 TB)
+DFS Used%: 6.02%
+DFS Remaining%: 93.62%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:36 CEST 2018
+
+
+Name: 134.158.75.172:50010 (slave4)
+Hostname: slave4
+Decommission Status : Normal
+Configured Capacity: 4292867035136 (3.90 TB)
+DFS Used: 241196859392 (224.63 GB)
+Non DFS Used: 16025755648 (14.93 GB)
+DFS Remaining: 4035644420096 (3.67 TB)
+DFS Used%: 5.62%
+DFS Remaining%: 94.01%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Mon Jun 25 13:44:36 CEST 2018
+
