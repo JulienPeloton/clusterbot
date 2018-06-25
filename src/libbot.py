@@ -162,12 +162,14 @@ def return_log(cmd, logname, clean_log=True):
 
     Examples
     ----------
-    Clean the log after
-    >>> log = return_log("echo toto", "myLog.txt", True)
+    Keep the log on disk
+    >>> log = return_log("echo toto", "data/myLog.txt", False)
     >>> assert "toto" in log[0]
 
-    Keep the log on disk
-    >>> log = return_log("echo toto", "myLog.txt", False)
+    Clean the log after
+    >>> log = return_log("echo toto", "data/myLog.txt", True)
+    >>> import glob
+    >>> assert "data/myLog.txt" not in glob.glob("data/*.txt")
 
     """
     ## Launch the command and redirect the log
