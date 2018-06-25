@@ -266,8 +266,6 @@ class ClusterBot():
                 log = return_log(cmd.format(i), logname, True)
                 [jvms_log.append(line) for line in log]
 
-            jvms_log = np.array(data).flatten()
-
         problem = len(
             [line for line in jvms_log if "unavailable" in line])
         nslaves = len(
