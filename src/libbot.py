@@ -251,7 +251,7 @@ class ClusterBot():
             logname = logtest
             jvms_log = return_log(cmd, logname)
         else:
-            cmd = "echo -- {} -- >> log.txt;"
+            cmd = "echo -- {} --;"
             cmd += "sudo -i ssh slave{} jps -lm"
             logname = "executors_{}".format(self.date.replace(" ", "_"))
             data = []
