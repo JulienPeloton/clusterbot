@@ -19,15 +19,6 @@ from libbot import ClusterBot
 def addargs(parser):
     """ Parse command line arguments """
     parser.add_argument(
-        '--croncommand',
-        dest='croncommand',
-        help="""
-            Cron command. For more information use
-                man cron
-        """,
-        required=True)
-
-    parser.add_argument(
         '--webhook_url',
         dest='webhook_url',
         help="""
@@ -38,12 +29,13 @@ def addargs(parser):
         required=True)
 
     parser.add_argument(
-        '--service',
-        dest='service',
+        '--test_mode',
+        dest='test_mode',
         help="""
-            Service to run, and get the data from
+            Run the bot in test mode, that is logs are read from local sources,
+            and no commands are launched (useful for CI tests for example).
         """,
-        default="check_mk_agent")
+        action='store_true')
 
 def grabargs(args_param=None):
     """ Parse command line arguments """
@@ -57,6 +49,6 @@ if __name__ == "__main__":
     args_param = None
     args = grabargs(args_param)
 
-    cb = ClusterBot(args.webhook_url, args.croncommand, args.service)
+    cb = ClusterBot(args.webhook_url, args.test_mode)
     cb.run_all()
     cb.send_data()
