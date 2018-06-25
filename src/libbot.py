@@ -73,8 +73,8 @@ class ClusterBot():
         >>> msg = bot.run_all()
 
         Run all
-        >>> bot = ClusterBot("", ["executors", "yarn", "spark", "hdfs"],
-        ...     test=True)
+        >>> bot = ClusterBot("", ["executors", "jvms", "yarn",
+        ... "spark", "hdfs"], test=True)
         +-- RUNNING IN TEST MODE --+
         >>> msg = bot.run_all()
 
@@ -83,6 +83,11 @@ class ClusterBot():
             self.msg += self.check_executors()
         else:
             self.msg += "Executor monitoring disabled\n"
+
+        if "jvms" in self.services:
+            self.msg += self.check_jvms()
+        else:
+            self.msg += "JVMs monitoring disabled\n"
 
         if "yarn" in self.services:
             self.msg += self.check_yarn()
@@ -156,7 +161,8 @@ class ClusterBot():
 
         return msg
 
-    def check_executors(self, nslave_expected=9, logtest="data/executor_test_OK.txt"):
+    def check_executors(
+            self, nslave_expected=9, logtest="data/executor_test_OK.txt"):
         """
         List all nodes managed by your cluster, and look at the status.
         A node is said OK if we can send packets to network hosts (ping OK).
@@ -209,6 +215,64 @@ class ClusterBot():
 
         return msg
 
+    def check_jvms(self, nslave_expected=9, logtest="data/jvm_test_OK.txt"):
+        """
+        List all instrumented JVMs on your cluster, and look at the status.
+        A node is said OK if the services are available.
+
+        Parameters
+        ----------
+        nslave_expected : Int
+            Number of slaves (executors) registered in the cluster.
+
+        Returns
+        ----------
+        msg : String
+            Message to be sent to Slack. Contains cirle mark describing the
+            status and number of slaves up.
+
+        Examples
+        ----------
+        >>> bot = ClusterBot("", ["executors"], test=True)
+        +-- RUNNING IN TEST MODE --+
+
+        >>> msg = bot.check_jvms(logtest="data/jvm_test_OK.txt")
+        >>> print(msg)
+        :white_check_mark: inst. JVMs (9/9 slaves up)
+        <BLANKLINE>
+
+        >>> msg = bot.check_jvms(logtest="data/jvm_test_FAIL.txt")
+        >>> print(msg)
+        :red_circle: inst. JVMs (8/9 slaves up)
+        <BLANKLINE>
+        """
+        if self.test:
+            cmd = None
+            logname = logtest
+            jvms_log = return_log(cmd, logname)
+        else:
+            cmd = "echo -- {} -- >> log.txt;"
+            cmd += "sudo -i ssh slave{} jps -lm >> log.txt"
+            logname = "executors_{}".format(self.date.replace(" ", "_"))
+            data = []
+            for i in range(1, 10):
+                data.append(return_log(cmd.format(i, i), logname))
+            jvms_log = data.flatten()
+
+        problem = len(
+            [line for line in jvms_log if "unavailable" in line])
+        nslaves = len(
+            [line for line in jvms_log if "---" in line])
+
+        if (problem == 0):
+            msg = ":white_check_mark: inst. JVMs ({}/{} slaves up)\n".format(
+                nslave_expected, nslave_expected)
+        else:
+            msg = ":red_circle: inst. JVMs ({}/{} slaves up)\n".format(
+                nslave_expected - problem, nslave_expected)
+
+        return msg
+
     def check_spark(self):
         """
         """
@@ -239,6 +303,7 @@ class ClusterBot():
         Cluster report (TEST)
         --------------------
         Executor monitoring disabled
+        JVMs monitoring disabled
         :white_check_mark: YARN (9/9 slaves up)
         Spark monitoring disabled
         HDFS monitoring disabled
@@ -287,7 +352,7 @@ def return_log(cmd, logname, clean_log=True):
     """
     ## Launch the command and redirect the log
     if cmd is not None:
-        os.system(cmd + " > {}".format(logname))
+        os.system(cmd + " >> {}".format(logname))
         test = False
     else:
         test = True
