@@ -254,7 +254,7 @@ class ClusterBot():
             logname = "executors_{}".format(self.date.replace(" ", "_"))
             data = []
             for i in range(1, 10):
-                cmd = "echo -- {} --"
+                cmd = "echo --- {} ---"
                 data.append(return_log(cmd.format(i), logname))
                 cmd = "sudo -i ssh slave{} jps -lm"
                 data.append(return_log(cmd.format(i), logname))
