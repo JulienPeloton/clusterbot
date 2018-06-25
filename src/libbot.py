@@ -82,27 +82,27 @@ class ClusterBot():
         if "executors" in self.services:
             self.msg += self.check_executors()
         else:
-            self.msg += "Executor monitoring disabled\n"
+            self.msg += ":black_circle: Executor monitoring disabled\n"
 
         if "jvms" in self.services:
             self.msg += self.check_jvms()
         else:
-            self.msg += "JVMs monitoring disabled\n"
+            self.msg += ":black_circle: JVMs monitoring disabled\n"
 
         if "yarn" in self.services:
             self.msg += self.check_yarn()
         else:
-            self.msg += "YARN monitoring disabled\n"
+            self.msg += ":black_circle: YARN monitoring disabled\n"
 
         if "hdfs" in self.services:
             self.msg += self.check_hdfs()
         else:
-            self.msg += "HDFS monitoring disabled\n"
+            self.msg += ":black_circle: HDFS monitoring disabled\n"
 
         if "spark" in self.services:
             self.msg += self.check_spark()
         else:
-            self.msg += "Spark monitoring disabled\n"
+            self.msg += ":black_circle: Spark monitoring disabled\n"
 
         if "red_circle" in self.msg:
             self.username = "Problem(s) happened!"
@@ -365,11 +365,11 @@ class ClusterBot():
         >>> msg = bot.send_data()
         Cluster report (TEST)
         --------------------
-        Executor monitoring disabled
-        JVMs monitoring disabled
+        :black_circle: Executor monitoring disabled
+        :black_circle: JVMs monitoring disabled
         :white_check_mark: YARN (9/9 slaves up)
-        HDFS monitoring disabled
-        Spark monitoring disabled
+        :black_circle: HDFS monitoring disabled
+        :black_circle: Spark monitoring disabled
         <BLANKLINE>
         """
         if self.test:
