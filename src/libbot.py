@@ -94,15 +94,15 @@ class ClusterBot():
         else:
             self.msg += "YARN monitoring disabled\n"
 
-        if "spark" in self.services:
-            self.msg += self.check_spark()
-        else:
-            self.msg += "Spark monitoring disabled\n"
-
         if "hdfs" in self.services:
             self.msg += self.check_hdfs()
         else:
             self.msg += "HDFS monitoring disabled\n"
+
+        if "spark" in self.services:
+            self.msg += self.check_spark()
+        else:
+            self.msg += "Spark monitoring disabled\n"
 
         if "red_circle" in self.msg:
             self.username = "Problem(s) happened!"
@@ -139,6 +139,7 @@ class ClusterBot():
         >>> msg = bot.check_yarn(logtest="data/yarn_test_FAIL.txt")
         >>> print(msg)
         :red_circle: YARN (8/9 slaves up)
+        _run <yarn node -list -all> for more information_
         <BLANKLINE>
         """
         if self.test:
@@ -158,7 +159,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: YARN ({}/{} slaves up)\n".format(
                 nslave, nslave_expected)
-            msg += "  run <yarn node -list -all> for more information\n"
+            msg += "_run <yarn node -list -all> for more information_\n"
 
         return msg
 
@@ -192,6 +193,7 @@ class ClusterBot():
         >>> msg = bot.check_executors(logtest="data/executor_test_FAIL.txt")
         >>> print(msg)
         :red_circle: Executors (8/9 slaves up)
+        _run <ping -c 1 slave#> for more information_
         <BLANKLINE>
         """
         if self.test:
@@ -213,7 +215,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: Executors ({}/{} slaves up)\n".format(
                 nslaveok, nslave_expected)
-            msg += "  run <ping -c 1 slave#> for more information\n"
+            msg += "_run <ping -c 1 slave#> for more information_\n"
 
         return msg
 
@@ -246,6 +248,7 @@ class ClusterBot():
         >>> msg = bot.check_jvms(logtest="data/jvm_test_FAIL.txt")
         >>> print(msg)
         :red_circle: inst. JVMs (8/9 slaves up)
+        _run <ssh slave# jps -lm> for more information_
         <BLANKLINE>
         """
         if self.test:
@@ -279,7 +282,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: inst. JVMs ({}/{} slaves up)\n".format(
                 nslaves - problem, nslave_expected)
-            msg += "  run <ssh slave# jps -lm> for more information\n"
+            msg += "_run <ssh slave# jps -lm> for more information_\n"
 
         return msg
 
@@ -317,7 +320,7 @@ class ClusterBot():
         >>> msg = bot.check_hdfs(logtest="data/hdfs_test_FAIL.txt")
         >>> print(msg)
         :red_circle: HDFS (8/9 DataNodes up)
-          run <su -c 'hdfs dfsadmin -report' - hduser> for more information
+        _run <su -c 'hdfs dfsadmin -report' - hduser> for more information_
         <BLANKLINE>
         """
         if self.test:
@@ -340,7 +343,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: HDFS ({}/{} DataNodes up)\n".format(
                 live, nnode_expected)
-            msg += "  run <su -c 'hdfs dfsadmin -report' - hduser> for more information\n"
+            msg += "_run <su -c 'hdfs dfsadmin -report' - hduser> for more information_\n"
         return msg
 
     def send_data(self):
@@ -365,8 +368,8 @@ class ClusterBot():
         Executor monitoring disabled
         JVMs monitoring disabled
         :white_check_mark: YARN (9/9 slaves up)
-        Spark monitoring disabled
         HDFS monitoring disabled
+        Spark monitoring disabled
         <BLANKLINE>
         """
         if self.test:
