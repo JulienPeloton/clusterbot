@@ -192,7 +192,7 @@ class ClusterBot():
             logname = logtest
         else:
             cmd = "for i in $(seq 1 {});".format(nslave_expected)
-            cmd += "do ping -c 1 slave$i >> toto.log; done"
+            cmd += "do ping -c 1 slave$i; done"
             logname = "executors_{}".format(self.date.replace(" ", "_"))
 
         executors_log = return_log(cmd, logname)
