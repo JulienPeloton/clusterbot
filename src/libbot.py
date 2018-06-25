@@ -156,10 +156,58 @@ class ClusterBot():
 
         return msg
 
-    def check_executors(self):
+    def check_executors(self, nslave_expected=9, logtest="data/executor_test_OK.txt"):
         """
+        List all nodes managed by your cluster, and look at the status.
+        A node is said OK if we can send packets to network hosts (ping OK).
+
+        Parameters
+        ----------
+        nslave_expected : Int
+            Number of slaves (executors) registered in the cluster.
+
+        Returns
+        ----------
+        msg : String
+            Message to be sent to Slack. Contains cirle mark describing the
+            status and number of slaves up.
+
+        Examples
+        ----------
+        >>> bot = ClusterBot("", ["executors"], test=True)
+        +-- RUNNING IN TEST MODE --+
+
+        >>> msg = bot.check_executors(logtest="data/executor_test_OK.txt")
+        >>> print(msg)
+        :white_check_mark: Executors (9/9 slaves up)
+        <BLANKLINE>
+
+        >>> msg = bot.check_executors(logtest="data/executor_test_FAIL.txt")
+        >>> print(msg)
+        :red_circle: Executors (8/9 slaves up)
+        <BLANKLINE>
         """
-        return ""
+        if self.test:
+            cmd = None
+            logname = logtest
+        else:
+            cmd = "for i in $(seq 1 {});".format(nslave_expected)
+            cmd += "do ping -c 1 slave$i >> toto.log; done"
+            logname = "executors_{}".format(self.date.replace(" ", "_"))
+
+        executors_log = return_log(cmd, logname)
+        nslave = len([line for line in executors_log if "--- slave" in line])
+        nslaveok = len(
+            [line for line in executors_log if "transmitted" in line])
+
+        if (nslave == nslave_expected & nslave == nslaveok):
+            msg = ":white_check_mark: Executors ({}/{} slaves up)\n".format(
+                nslaveok, nslave_expected)
+        else:
+            msg = ":red_circle: Executors ({}/{} slaves up)\n".format(
+                nslaveok, nslave_expected)
+
+        return msg
 
     def check_spark(self):
         """

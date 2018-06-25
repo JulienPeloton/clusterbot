@@ -1,0 +1,51 @@
+PING slave1 (134.158.75.133) 56(84) bytes of data.
+64 bytes from slave1 (134.158.75.133): icmp_seq=1 ttl=64 time=0.352 ms
+
+--- slave1 ping statistics ---
+ping: cannot resolve slave1: Unknown host
+
+--- slave2 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.460/0.460/0.460/0.000 ms
+PING slave3 (134.158.75.171) 56(84) bytes of data.
+64 bytes from slave3 (134.158.75.171): icmp_seq=1 ttl=64 time=0.470 ms
+
+--- slave3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.470/0.470/0.470/0.000 ms
+PING slave4 (134.158.75.172) 56(84) bytes of data.
+64 bytes from slave4 (134.158.75.172): icmp_seq=1 ttl=64 time=0.484 ms
+
+--- slave4 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.484/0.484/0.484/0.000 ms
+PING slave5 (134.158.75.183) 56(84) bytes of data.
+64 bytes from slave5 (134.158.75.183): icmp_seq=1 ttl=64 time=0.420 ms
+
+--- slave5 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.420/0.420/0.420/0.000 ms
+PING slave6 (134.158.75.102) 56(84) bytes of data.
+64 bytes from slave6 (134.158.75.102): icmp_seq=1 ttl=64 time=0.387 ms
+
+--- slave6 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.387/0.387/0.387/0.000 ms
+PING slave7 (134.158.74.164) 56(84) bytes of data.
+64 bytes from slave7 (134.158.74.164): icmp_seq=1 ttl=64 time=0.396 ms
+
+--- slave7 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.396/0.396/0.396/0.000 ms
+PING slave8 (134.158.75.155) 56(84) bytes of data.
+64 bytes from slave8 (134.158.75.155): icmp_seq=1 ttl=64 time=0.408 ms
+
+--- slave8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.408/0.408/0.408/0.000 ms
+PING slave9 (134.158.74.177) 56(84) bytes of data.
+64 bytes from slave9 (134.158.74.177): icmp_seq=1 ttl=64 time=0.408 ms
+
+--- slave9 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.408/0.408/0.408/0.000 ms
