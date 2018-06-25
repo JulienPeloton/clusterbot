@@ -1,0 +1,24 @@
+#!/bin/bash
+# clusterbot: bring cluster monitoring into channels
+# Copyright (C) 2018  Julien Peloton
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+## Webhook URL (where to send the data)
+webhook_url="https://hooks.slack.com/services/XXXX/YYYY/ZZZZ"
+
+python ${PWD}/src/clusterbot.py --webhook_url ${webhook_url}
+
+## Uncomment this for test mode
+# python ${PWD}/src/clusterbot.py --webhook_url ${webhook_url} --test_mode
