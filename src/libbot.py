@@ -257,7 +257,7 @@ class ClusterBot():
             data = []
             for i in range(1, 10):
                 data.append(return_log(cmd.format(i, i), logname))
-            jvms_log = data.flatten()
+            jvms_log = np.array(data).flatten()
 
         problem = len(
             [line for line in jvms_log if "unavailable" in line])
@@ -266,10 +266,10 @@ class ClusterBot():
 
         if (problem == 0):
             msg = ":white_check_mark: inst. JVMs ({}/{} slaves up)\n".format(
-                nslave_expected, nslave_expected)
+                nslaves, nslave_expected)
         else:
             msg = ":red_circle: inst. JVMs ({}/{} slaves up)\n".format(
-                nslave_expected - problem, nslave_expected)
+                nslaves - problem, nslave_expected)
 
         return msg
 
