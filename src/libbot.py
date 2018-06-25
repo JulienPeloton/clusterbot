@@ -338,7 +338,7 @@ class ClusterBot():
                 [spark_log.append(line) for line in log]
 
         workers = len(
-            [line for line in spark_log if "spark" in line])
+            [line for line in spark_log if "spark://vm-75222" in line])
         nslaves = len(
             [line for line in spark_log if "--- " in line])
 
