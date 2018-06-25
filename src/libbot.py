@@ -252,12 +252,20 @@ class ClusterBot():
             jvms_log = return_log(cmd, logname)
         else:
             logname = "jvms_{}".format(self.date.replace(" ", "_"))
-            data = []
-            for i in range(1, 10):
+            jvms_log = []
+
+            ## Loop over slaves
+            for i in range(1, nslave_expected + 1):
+                ## ID
                 cmd = "echo --- {} ---"
-                data.append(return_log(cmd.format(i), logname))
+                id = return_log(cmd.format(i), logname, False)[0]
+                jvms_log.append(id)
+
+                ## Services using JVMs
                 cmd = "sudo -i ssh slave{} jps -lm"
-                data.append(return_log(cmd.format(i), logname))
+                log = return_log(cmd.format(i), logname, True)
+                [jvms_log.append(line) for line in log]
+
             jvms_log = np.array(data).flatten()
 
         problem = len(
