@@ -158,6 +158,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: YARN ({}/{} slaves up)\n".format(
                 nslave, nslave_expected)
+            msg += "  run <yarn node -list -all> for more information\n"
 
         return msg
 
@@ -212,6 +213,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: Executors ({}/{} slaves up)\n".format(
                 nslaveok, nslave_expected)
+            msg += "  run <ping -c 1 slave#> for more information\n"
 
         return msg
 
@@ -277,6 +279,7 @@ class ClusterBot():
         else:
             msg = ":red_circle: inst. JVMs ({}/{} slaves up)\n".format(
                 nslaves - problem, nslave_expected)
+            msg += "  run <ssh slave# jps -lm> for more information\n"
 
         return msg
 
@@ -285,10 +288,60 @@ class ClusterBot():
         """
         return ""
 
-    def check_hdfs(self):
+    def check_hdfs(self, nnode_expected=9, logtest="data/hdfs_test_FAIL.txt"):
         """
+        Check whether all DataNotes are alive on your cluster,
+        and look at the status. A node is said OK if the DataNote is not Dead.
+
+        Parameters
+        ----------
+        nnode_expected : Int
+            Number of DataNode registered in the cluster.
+
+        Returns
+        ----------
+        msg : String
+            Message to be sent to Slack. Contains cirle mark describing the
+            status and number of DataNodes up.
+
+        Examples
+        ----------
+        >>> bot = ClusterBot("", ["hdfs"], test=True)
+        +-- RUNNING IN TEST MODE --+
+
+        >>> msg = bot.check_hdfs(logtest="data/hdfs_test_OK.txt")
+        >>> print(msg)
+        :white_check_mark: HDFS (8/9 DataNodes up)
+        <BLANKLINE>
+
+        >>> msg = bot.check_hdfs(logtest="data/hdfs_test_FAIL.txt")
+        >>> print(msg)
+        :red_circle: HDFS (8/9 DataNodes up)
+          run <su -c 'hdfs dfsadmin -report' - hduser> for more information
+        <BLANKLINE>
         """
-        return ""
+        if self.test:
+            cmd = None
+            logname = logtest
+            hdfs_log = return_log(cmd, logname)
+        else:
+            logname = "hdfs_{}".format(self.date.replace(" ", "_"))
+            cmd = "sudo -i su -c 'hdfs dfsadmin -report' - hduser"
+            hdfs_log = return_log(cmd, logname)
+
+        problem = len(
+            [line for line in hdfs_log if "Dead" in line])
+        live_tmp = [line for line in hdfs_log if "Live datanodes" in line][0]
+        live = [int(c) for c in live_tmp if c.isnumeric()][0]
+
+        if (problem == 0):
+            msg = ":white_check_mark: HDFS ({}/{} DataNodes up)\n".format(
+                live, nnode_expected)
+        else:
+            msg = ":red_circle: HDFS ({}/{} DataNodes up)\n".format(
+                live, nnode_expected)
+            msg += "  run <su -c 'hdfs dfsadmin -report' - hduser> for more information\n"
+        return msg
 
     def send_data(self):
         """
