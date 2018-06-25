@@ -15,16 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## Webhook URL (where to send the data)
-webhook_url="https://hooks.slack.com/services/XXXX/YYYY/ZZZZ"
-services="yarn"
-
-python ${PWD}/src/clusterbot.py \
-  --webhook_url ${webhook_url} \
-  --services ${services}
-
-## Uncomment this for test mode
-# python ${PWD}/src/clusterbot.py \
-#   --webhook_url ${webhook_url} \
-#   --services ${services} \
-#   --test_mode
+## Script to measure the coverage of the test suite (via doctest).
+## Launch it using ./coverage
+## and open the html files under the folder htmlcov/
+coverage run src/libbot.py
+coverage report src/libbot.py
+coverage html src/libbot.py

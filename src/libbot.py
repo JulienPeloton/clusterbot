@@ -20,7 +20,7 @@ import numpy as np
 
 class ClusterBot():
     """ Run services to monitor a cluster """
-    def __init__(self, webhook_url, test=False):
+    def __init__(self, webhook_url, services, test=False):
         """
         ClusterBot instance. Currently checks: connection to executors, YARN,
         Spark, and HDFS. The summary is formatted at the JSON format and sent
@@ -31,18 +31,25 @@ class ClusterBot():
         -----------
         webhook_url : string
             the URL to which cluster information will be sent.
+        services : List of strings
+            Services to monitor. Currently available: executors,
+            yarn, spark, hdfs.
         test : Boolean, optional
             If True, run the bot in test mode: no commands are launched, and
             data is read from local logs.
 
         """
         self.webhook_url = webhook_url
+        self.services = services
         self.test = test
         if self.test:
             print("+-- RUNNING IN TEST MODE --+")
 
         ## Current date
-        self.date = time.ctime()
+        if self.test:
+            self.date = "TEST"
+        else:
+            self.date = time.ctime()
 
         ## Header of the message to be sent
         self.msg = "Cluster report ({})\n--------------------\n".format(
@@ -50,8 +57,47 @@ class ClusterBot():
 
     def run_all(self):
         """
+        Run the services. If a service is not registered by the user,
+        mention it as disabled.
+
+        Examples
+        ----------
+        Run nothing
+        >>> bot = ClusterBot("", [""], test=True)
+        +-- RUNNING IN TEST MODE --+
+        >>> msg = bot.run_all()
+
+        Run YARN
+        >>> bot = ClusterBot("", ["yarn"], test=True)
+        +-- RUNNING IN TEST MODE --+
+        >>> msg = bot.run_all()
+
+        Run all
+        >>> bot = ClusterBot("", ["executors", "yarn", "spark", "hdfs"],
+        ...     test=True)
+        +-- RUNNING IN TEST MODE --+
+        >>> msg = bot.run_all()
+
         """
-        self.msg += self.check_yarn()
+        if "executors" in self.services:
+            self.msg += self.check_executors()
+        else:
+            self.msg += "Executor monitoring disabled\n"
+
+        if "yarn" in self.services:
+            self.msg += self.check_yarn()
+        else:
+            self.msg += "YARN monitoring disabled\n"
+
+        if "spark" in self.services:
+            self.msg += self.check_spark()
+        else:
+            self.msg += "Spark monitoring disabled\n"
+
+        if "hdfs" in self.services:
+            self.msg += self.check_hdfs()
+        else:
+            self.msg += "HDFS monitoring disabled\n"
 
         if "red_circle" in self.msg:
             self.username = "Problem(s) happened!"
@@ -77,7 +123,7 @@ class ClusterBot():
 
         Examples
         ----------
-        >>> bot = ClusterBot("", test=True)
+        >>> bot = ClusterBot("", ["yarn"], test=True)
         +-- RUNNING IN TEST MODE --+
 
         >>> msg = bot.check_yarn(logtest="data/yarn_test_OK.txt")
@@ -110,15 +156,20 @@ class ClusterBot():
 
         return msg
 
+    def check_executors(self):
+        """
+        """
+        return ""
+
     def check_spark(self):
         """
         """
-        pass
+        return ""
 
     def check_hdfs(self):
         """
         """
-        pass
+        return ""
 
     def send_data(self):
         """
@@ -130,6 +181,20 @@ class ClusterBot():
         In test mode, no data is sent, and the message is
         printed out on the screen.
 
+        Examples
+        ----------
+        Run nothing
+        >>> bot = ClusterBot("", ["yarn"], test=True)
+        +-- RUNNING IN TEST MODE --+
+        >>> msg = bot.run_all()
+        >>> msg = bot.send_data()
+        Cluster report (TEST)
+        --------------------
+        Executor monitoring disabled
+        :white_check_mark: YARN (9/9 slaves up)
+        Spark monitoring disabled
+        HDFS monitoring disabled
+        <BLANKLINE>
         """
         if self.test:
             print(self.msg)

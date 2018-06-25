@@ -19,6 +19,16 @@ from libbot import ClusterBot
 def addargs(parser):
     """ Parse command line arguments """
     parser.add_argument(
+        '--services',
+        dest='services',
+        help="""
+            Services to monitor, space separated. Example to monitor YARN and
+            Spark use `--service yarn spark`.
+        """,
+        nargs='+',
+        required=True)
+
+    parser.add_argument(
         '--webhook_url',
         dest='webhook_url',
         help="""
@@ -49,6 +59,6 @@ if __name__ == "__main__":
     args_param = None
     args = grabargs(args_param)
 
-    cb = ClusterBot(args.webhook_url, args.test_mode)
+    cb = ClusterBot(args.webhook_url, args.services, args.test_mode)
     cb.run_all()
     cb.send_data()
